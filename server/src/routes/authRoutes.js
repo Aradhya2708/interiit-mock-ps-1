@@ -1,6 +1,6 @@
 import express from 'express';
 // import controllers
-import { login, callback, logout } from '../controllers/authController.js';
+import { login, callback, logout, renderWalletPage, addWallet } from '../controllers/authController.js';
 import User from '../models/userModel.js'
 
 const router = express.Router();
@@ -10,6 +10,9 @@ router.get(`/github`, login); // Github OAuth
 router.get(`/github/callback`, callback);
 
 router.get(`/logout`, logout);
+
+// Route to render the wallet address entry page
+router.get('/enter-wallet', renderWalletPage);
 
 // debug route
 router.get('/safe', async (req, res) => {
@@ -28,5 +31,8 @@ router.get('/safe', async (req, res) => {
     // Render a message with the user's username
     res.send(`Hey, you are ${user.username}!`); // Display a simple message
 });
+
+// route to add wallet address
+router.post('/add-wallet', addWallet);
 
 export default router;

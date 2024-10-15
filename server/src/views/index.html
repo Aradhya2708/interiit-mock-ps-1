@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Login and Wallet Integration</title>
+</head>
+<body>
+    <h1>Login with GitHub</h1>
+    <button id="github-login">Login with GitHub</button>
+
+    <div id="wallet-input" style="display:none;">
+        <h2>Connect Your Wallet</h2>
+        <button id="connect-metamask">Connect with MetaMask</button>
+        <h3>Or Enter Wallet Address</h3>
+        <input type="text" id="wallet-address" placeholder="Enter your wallet address">
+        <button id="submit-wallet">Submit</button>
+    </div>
+
+    <script>
+        document.getElementById('github-login').onclick = function() {
+            window.location.href = '/auth/github'; // Redirect to GitHub OAuth
+        };
+
+        document.getElementById('connect-metamask').onclick = async function() {
+            if (window.ethereum) {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                document.getElementById('wallet-address').value = accounts[0];
+                document.getElementById('wallet-input').style.display = 'none';
+                // Optionally, submit the wallet address to your backend
+            } else {
+                alert('Please install MetaMask!');
+            }
+        };
+
+        document.getElementById('submit-wallet').onclick = async function() {
+            const walletAddress = document.getElementById('wallet-address').value;
+            if (walletAddress) {
+                // Send the wallet address to your backend after GitHub login
+                window.location.href = '/auth/github/callback?walletAddress=' + walletAddress;
+            } else {
+                alert('Please enter a wallet address.');
+            }
+        };
+    </script>
+</body>
+</html>

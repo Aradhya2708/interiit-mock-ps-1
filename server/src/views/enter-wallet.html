@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Wallet Address</title>
+</head>
+<body>
+    <h1>Enter Your Wallet Address</h1>
+    <form id="wallet-form">
+        <input type="text" id="wallet-address" placeholder="Enter your wallet address" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('wallet-form').onsubmit = function(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            const walletAddress = document.getElementById('wallet-address').value;
+            fetch('/auth/add-wallet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ walletAddress }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/auth/safe'; // Redirect to safe area after user is created
+                } else {
+                    alert('Error creating user. Please try again.');
+                }
+            });
+        };
+    </script>
+</body>
+</html>

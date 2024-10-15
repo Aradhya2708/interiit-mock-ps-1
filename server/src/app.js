@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import bodyParser from 'body-parser';
 import "dotenv/config"
 
 // import routes
@@ -23,6 +24,8 @@ app.use(
         credentials: true,
     })
 )
+
+app.use(bodyParser())
 
 app.use(cookieParser())
 
