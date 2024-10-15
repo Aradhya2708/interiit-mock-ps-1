@@ -62,10 +62,10 @@ export const checkContributionStatus = async (req, res) => {
         // Parse the PR URL
         const { repoOwner, repoName, prNumber } = parsePRUrl(contribution.pullRequestUrl);
 
-        // Check PR merge status using GitHub API
+        // Check PR merge status using GitHub API : https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#check-if-a-pull-request-has-been-merged
         const githubResponse = await axios.get(`https://api.github.com/repos/${repoOwner}/${repoName}/pulls/${prNumber}/merge`, {
             headers: {
-                Authorization: `token ${process.env.GITHUB_TOKEN}`,
+                Authorization: `token ${process.env.GITHUB_TOKEN}`, // what token??
             },
         });
 
@@ -91,7 +91,7 @@ export const checkContributionStatus = async (req, res) => {
 
 // Utility function to parse PR URL
 const parsePRUrl = (url) => {
-    const regex = /https:\/\/github.com\/([^/]+)\/([^/]+)\/pull\/(\d+)/;
+    const regex = /https:\/\/github.com\/([^/]+)\/([^/]+)\/pull\/(\d+)/; // https://github.com/<owner>/<repository>/pull/<number>
     const match = url.match(regex);
     if (match) {
         return {

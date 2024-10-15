@@ -3,7 +3,6 @@
 import Project from '../models/projectModel.js'; // Adjust the path based on your structure
 import User from '../models/userModel.js'; // Adjust the path based on your structure
 import Contribution from '../models/contributionModel.js'
-import { deployContract } from '../utils/web3Utils.js';
 
 // Get all projects
 export const getAllProjects = async (req, res) => {

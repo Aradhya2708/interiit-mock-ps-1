@@ -7,6 +7,8 @@ import "dotenv/config"
 
 // import routes
 import authRoutes from './routes/authRoutes.js'
+import projectRoutes from './routes/projectRoutes.js'
+import contributionRoutes from './routes/contributionRoutes.js'
 
 const app = express()
 
@@ -31,5 +33,7 @@ app.use(cookieParser())
 
 // define (mount) routes
 app.use('/auth', authRoutes);
+app.use('/project', projectRoutes);
+app.use('/contribution', contributionRoutes);
 
 export { app }
